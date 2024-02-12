@@ -2,7 +2,7 @@
 
 ## About
 
-foops (foo person shooter) - A first-person controller demonstration made for the Bur Oak Secondary School Game Development Club
+A first-person controller demonstration made for the Bur Oak Secondary School Game Development Club
 
 ## Notes
 
