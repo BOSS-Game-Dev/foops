@@ -25,7 +25,6 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         maxDist = GetComponent<CapsuleCollider>().height * 0.5f + 0.2f;
-        Debug.Log(maxDist);
     }
 
     void Update()
