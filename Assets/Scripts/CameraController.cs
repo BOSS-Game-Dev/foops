@@ -8,6 +8,9 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private float mouseSensitivity;
 
+    [SerializeField]
+    private Transform orientation;
+
     private Vector2 mouseInput;
     private Vector2 camRotation;
 
@@ -27,6 +30,7 @@ public class CameraController : MonoBehaviour
         camRotation.x = Mathf.Clamp(camRotation.x, -90f, 90f);
 
         transform.rotation = Quaternion.Euler(camRotation.x, camRotation.y, 0);
+        orientation.rotation = Quaternion.Euler(0, camRotation.y, 0);
     }
 
     public void GetMouseInput(InputAction.CallbackContext callbackContext)
