@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 input;
     private Rigidbody rb;
+    private PhysicMaterial pm;
 
     private bool grounded;
     private float maxDist;
@@ -24,13 +25,13 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        pm = GetComponent<CapsuleCollider>().material;
         maxDist = GetComponent<CapsuleCollider>().height * 0.5f + 0.2f;
     }
 
     void Update()
     {
         grounded = Physics.Raycast(transform.position, Vector3.down, maxDist, whatIsGround);
-        Debug.Log(grounded);
     }
 
     void FixedUpdate()
