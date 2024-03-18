@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.4964127, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -324,7 +324,19 @@ MonoBehaviour:
     m_ActionId: b095c044-0168-4052-b1f1-20b8ec71dc80
     m_ActionName: Player/Fire[/Mouse/leftButton,/Touchscreen/primaryTouch/tap]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 40751038}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: Jump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 48c0733e-b5b1-4dfb-b73d-1a4bfbc7090b
     m_ActionName: Player/Jump[/Keyboard/space]
   - m_PersistentCalls:
@@ -386,6 +398,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientation: {fileID: 1497540879}
   movementSpeed: 20
+  jumpForce: 4
 --- !u!1 &355889892
 GameObject:
   m_ObjectHideFlags: 0
@@ -926,7 +939,7 @@ MonoBehaviour:
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
   m_PivotLocation: 1
   m_PivotPosition: {x: 0, y: 0, z: 0}
-  m_UnmodifiedMeshVersion: 4660
+  m_UnmodifiedMeshVersion: 4715
   m_ShapeBox:
     m_Center: {x: -6.504736, y: 0.3555185, z: 6.5889397}
     m_Extent: {x: 25, y: 0.050000012, z: 25}
@@ -1148,7 +1161,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 379010857}
-  m_VersionIndex: 4660
+  m_VersionIndex: 4715
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
