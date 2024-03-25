@@ -5,11 +5,8 @@ using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField]
-    private float mouseSensitivity;
-
-    [SerializeField]
-    private Transform orientation;
+    [SerializeField] private float mouseSensitivity;
+    [SerializeField] private Transform orientation;
 
     private Vector2 mouseInput;
     private Vector2 camRotation;
@@ -22,6 +19,7 @@ public class CameraController : MonoBehaviour
     }
 
     // Update is called once per frame
+    // LateUpdate is called after Update and FixedUpdate
     void LateUpdate()
     {
         camRotation.x -= mouseInput.y;
@@ -33,7 +31,7 @@ public class CameraController : MonoBehaviour
         orientation.rotation = Quaternion.Euler(0, camRotation.y, 0);
     }
 
-    public void GetMouseInput(InputAction.CallbackContext callbackContext)
+    public void GetMouseInput(InputAction.CallbackContext callbackContext) 
     {
         mouseInput = callbackContext.ReadValue<Vector2>() * mouseSensitivity * 0.02f;
     }
