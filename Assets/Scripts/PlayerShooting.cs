@@ -22,9 +22,9 @@ public class PlayerShooting : MonoBehaviour
 
     public void Shoot(InputAction.CallbackContext callbackContext) {
         if (callbackContext.performed) {
-            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f,0.5f,0));
-
-            Vector3 destination;
+            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            
+            Vector3 destination; 
             if (Physics.Raycast(ray, out var hit)) {
                 destination = hit.point;
             } else {
