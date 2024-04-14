@@ -16,12 +16,14 @@ public class BulletCollision : MonoBehaviour
 
     private bool collided;
 
-    void OnCollisionEnter(Collision col) 
+    void OnCollisionEnter(Collision col)
     {
-        if (!collided && !col.gameObject.CompareTag("Projectile")) {
-
+        if (!collided && !col.gameObject.CompareTag("Projectile"))
+        {
             GameObject explosionObj = Instantiate(
-                explosion, col.GetContact(0).point, Quaternion.identity
+                explosion,
+                col.GetContact(0).point,
+                Quaternion.identity
             );
 
             collided = true;
@@ -30,34 +32,23 @@ public class BulletCollision : MonoBehaviour
             Destroy(explosionObj, 2f);
             Destroy(gameObject);
         }
-
     }
 
-    void DoExplosionForce() 
+    void DoExplosionForce()
     {
         Collider[] colliders = new Collider[10];
 
         int count = Physics.OverlapSphereNonAlloc(transform.position, explosionRadius, colliders);
 
-        foreach (Collider c in colliders) 
+        foreach (Collider c in colliders)
         {
-            if (c != null && c.TryGetComponent<Rigidbody>(out var colliderRb)) 
-            {
-
-            }
+            if (c != null && c.TryGetComponent<Rigidbody>(out var colliderRb)) { }
         }
-
     }
 
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    void Start() { }
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    void Update() { }
 }
