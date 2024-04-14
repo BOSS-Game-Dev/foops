@@ -1,82 +1,74 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
-    private float moveSpeed;
-
-    [SerializeField]
     private Transform orientation;
 
     [SerializeField]
-    private LayerMask whatIsGround;
+    private float movementSpeed;
 
     [SerializeField]
     private float jumpForce;
 
+    [SerializeField]
+
+    private LayerMask whatIsGround;
+
+    private readonly float maxRaycastDist = 1.1f;
+
     private Vector2 input;
+    private Vector3 direction;
+
     private Rigidbody rb;
-    private PhysicMaterial pm;
-
-    private bool grounded;
-    private float maxDist;
-
+    
+    // Start is called before the first frame update
     void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-        pm = GetComponent<CapsuleCollider>().material;
-        maxDist = GetComponent<CapsuleCollider>().height * 0.5f + 0.2f;
+    { 
+        rb = GetComponent<Rigidbody>();   
     }
 
+    // Update is called once per frame
     void Update()
     {
-        grounded = Physics.Raycast(transform.position, Vector3.down, maxDist, whatIsGround);
+        
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        Move();
+        direction = orientation.forward * input.y + orientation.right * input.x;
+        rb.AddForce(direction * movementSpeed);
+
         SpeedControl();
     }
 
-    // Method is called by the "Player Input" Component
-    public void GetInput(InputAction.CallbackContext callbackContext)
+    public void GetInput(InputAction.CallbackContext callbackContext) 
     {
-        input = callbackContext.ReadValue<Vector2>();
+        input = callbackContext.ReadValue<Vector2>().normalized;
     }
 
-    // Method is called by the "Player Input" Component
-    public void Jump(InputAction.CallbackContext callbackContext)
-    {
-        // When the action is just performed (downstroke of the key)
-        if (callbackContext.performed)
-        {
-            if (!grounded) return;
+    public void Jump(InputAction.CallbackContext callbackContext) {
+        if (callbackContext.performed) {
+            bool isGrounded = Physics.Raycast(transform.position, Vector3.down, maxRaycastDist, whatIsGround);
+            Debug.Log(isGrounded);
 
-            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-            rb.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
+            if (isGrounded) 
+                // Add jump force
+                rb.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
         }
     }
 
-    public void Move()
-    {
-        // Input on y-axis is how much we move on our relative z-axis (forward & backwards)
-        // Input on x-axis is how much we move on relative x-axis (right & left)
-        Vector3 moveDirection = orientation.forward * input.y + orientation.right * input.x;
-        rb.AddForce(moveDirection * moveSpeed, ForceMode.Acceleration);
-    }
-
-    // This method is necessary, otherwise the player will keep on accelerating
-    public void SpeedControl()
-    {
+    private void SpeedControl() {
+        //Only care about the player's velocity in the x-z plane (flat)
         Vector3 flatVelocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
 
-        if (flatVelocity.magnitude > moveSpeed)
-        {
-            Vector3 limitedVelocity = flatVelocity.normalized * moveSpeed;
+        if (flatVelocity.magnitude > movementSpeed) {
+            //Limit the player's velocity to the same direction, but at the max speed magnitude
+            Vector3 limitedVelocity = flatVelocity.normalized * movementSpeed;
             rb.velocity = new Vector3(limitedVelocity.x, rb.velocity.y, limitedVelocity.z);
         }
     }
-
 }

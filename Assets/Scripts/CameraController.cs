@@ -1,42 +1,40 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
     [SerializeField]
-    private Transform orientation;
+    private float mouseSensitivity;
 
     [SerializeField]
-    private float mouseSens;
+    private Transform orientation;
 
     private Vector2 mouseInput;
-    private Vector2 camRot;
+    private Vector2 camRotation;
+
     // Start is called before the first frame update
     void Start()
     {
-        // Hide the cursor and lock it to the center of the screen
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    public void LateUpdate()
+    // Update is called once per frame
+    void LateUpdate()
     {
-        // Rotating on x-axis -> down and up
-        camRot.x -= mouseInput.y;
-        // Rotating on y-axis -> right and left
-        camRot.y += mouseInput.x;
+        camRotation.x -= mouseInput.y;
+        camRotation.y += mouseInput.x;
 
-        camRot.x = Mathf.Clamp(camRot.x, -90f, 90f);
+        camRotation.x = Mathf.Clamp(camRotation.x, -90f, 90f);
 
-        transform.rotation = Quaternion.Euler(camRot.x, camRot.y, 0);
-        
-        // Rotate the player's orientation
-        orientation.rotation = Quaternion.Euler(0, camRot.y, 0);
+        transform.rotation = Quaternion.Euler(camRotation.x, camRotation.y, 0);
+        orientation.rotation = Quaternion.Euler(0, camRotation.y, 0);
     }
 
-    // Method is called by the "Player Input" Component
     public void GetMouseInput(InputAction.CallbackContext callbackContext)
     {
-        mouseInput = callbackContext.ReadValue<Vector2>() * 0.02f * mouseSens;
+        mouseInput = callbackContext.ReadValue<Vector2>() * mouseSensitivity * 0.02f;
     }
 }
