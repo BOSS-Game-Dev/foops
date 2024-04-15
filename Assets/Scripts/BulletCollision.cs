@@ -43,7 +43,7 @@ public class BulletCollision : MonoBehaviour
         {
             if (c != null && c.TryGetComponent<Rigidbody>(out var colliderRb)) 
             {
-
+              colliderRb.AddExplosionForce(explosionForce, colliderRb.position, explosionRadius, 1f, ForceMode.Impulse);
             }
         }
 
