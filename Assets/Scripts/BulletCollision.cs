@@ -42,7 +42,11 @@ public class BulletCollision : MonoBehaviour
 
         foreach (Collider c in colliders)
         {
-            if (c != null && c.TryGetComponent<Rigidbody>(out var colliderRb)) { }
+            if (c != null && c.TryGetComponent<Rigidbody>(out var colliderRb))
+            {
+                // 1f represents the upwards modifier; how much should the explosion act on objects upwards
+                colliderRb.AddExplosionForce(explosionForce, colliderRb.position, explosionRadius, 1f, ForceMode.Impulse);
+            }
         }
     }
 
