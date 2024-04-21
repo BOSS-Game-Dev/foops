@@ -16,6 +16,7 @@ public class BulletCollision : MonoBehaviour
 
     private bool collided;
 
+    // OnCollisionStay because we want to count for collisions while the bullet is IN another collider as well
     void OnCollisionEnter(Collision col)
     {
         if (!collided && !col.gameObject.CompareTag("Projectile"))
@@ -45,14 +46,8 @@ public class BulletCollision : MonoBehaviour
             if (c != null && c.TryGetComponent<Rigidbody>(out var colliderRb))
             {
                 // 1f represents the upwards modifier; how much should the explosion act on objects upwards
-                colliderRb.AddExplosionForce(explosionForce, colliderRb.position, explosionRadius, 1f, ForceMode.Impulse);
+                colliderRb.AddExplosionForce(explosionForce, transform.position, explosionRadius, 1f, ForceMode.Impulse);
             }
         }
     }
-
-    // Start is called before the first frame update
-    void Start() { }
-
-    // Update is called once per frame
-    void Update() { }
 }
