@@ -20,6 +20,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float maxSlope = 40f;
 
+    [SerializeField]
+    private float groundDrag = 3f;
+
     private readonly float maxRaycastDist = 1.1f;
 
     private Vector2 input;
@@ -58,7 +61,15 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(10f * movementSpeed * direction);
         }
 
+        if (isGrounded)
+            rb.drag = groundDrag;
+        else 
+            rb.drag = 0;
+
         SpeedControl();
+
+        print(onSlope);
+        rb.useGravity = !onSlope;
     }
 
     public void GetInput(InputAction.CallbackContext callbackContext)
@@ -75,8 +86,6 @@ public class PlayerController : MonoBehaviour
                 rb.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
         }
     }
-
-    private void Move() { }
 
     private void SpeedControl()
     {
@@ -104,7 +113,7 @@ public class PlayerController : MonoBehaviour
         )
         {
             var angle = Vector3.Angle(Vector3.up, slopeHit.normal);
-            return angle < 40 && angle != 0;
+            return angle < maxSlope && angle != 0;
         }
         return false;
     }
