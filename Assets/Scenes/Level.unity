@@ -155,7 +155,7 @@ Rigidbody:
   m_GameObject: {fileID: 40751031}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 0.005
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -415,8 +415,6 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
-  maxSlope: 40
-  groundDrag: 3
 --- !u!114 &40751040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1737,7 +1735,7 @@ TerrainCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 792066715}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 225567fe2d51165148ccdf96ad89bf18, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
