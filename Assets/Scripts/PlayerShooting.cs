@@ -5,12 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerShooting : MonoBehaviour
 {
-    [SerializeField]
-    private Transform shootPosition;    
-
-    [SerializeField]
-
-    private GameObject bullet;
+    [SerializeField] private Transform shootPosition;
+    [SerializeField] private GameObject bullet;
 
     // Start is called before the first frame update
     void Start()
@@ -37,10 +33,10 @@ public class PlayerShooting : MonoBehaviour
 
             GameObject bulletObject = Instantiate(bullet, shootPosition.position, Quaternion.identity);
             Vector3 shootDirection = (destination - shootPosition.position).normalized;
-
+            
             bulletObject.GetComponent<Rigidbody>().velocity = shootDirection * 100f;
 
-            Destroy(bulletObject, 2f);            
+            Destroy(bulletObject, 2f);
         }
     }
 }

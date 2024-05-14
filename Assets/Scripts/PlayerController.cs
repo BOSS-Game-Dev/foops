@@ -17,12 +17,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private LayerMask whatIsGround;
 
-    [SerializeField]
-    private float maxSlope = 40f;
-
-    [SerializeField]
-    private float groundDrag = 3f;
-
     private readonly float maxRaycastDist = 1.1f;
 
     private Vector2 input;
@@ -44,32 +38,15 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var onSlope = IsOnSlope();
         direction = orientation.forward * input.y + orientation.right * input.x;
 
-        isGrounded =
-            Physics.Raycast(transform.position, Vector3.down, maxRaycastDist, whatIsGround)
-            || onSlope;
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, maxRaycastDist, whatIsGround);
 
-        if (onSlope)
-        {
-            var slopeDirection = Vector3.ProjectOnPlane(direction, slopeHit.normal);
-            rb.AddForce(10f * movementSpeed * slopeDirection);
-        }
-        else
-        {
+        if (isGrounded) {
             rb.AddForce(10f * movementSpeed * direction);
         }
 
-        if (isGrounded)
-            rb.drag = groundDrag;
-        else 
-            rb.drag = 0;
-
         SpeedControl();
-
-        print(onSlope);
-        rb.useGravity = !onSlope;
     }
 
     public void GetInput(InputAction.CallbackContext callbackContext)
@@ -98,23 +75,5 @@ public class PlayerController : MonoBehaviour
             Vector3 limitedVelocity = flatVelocity.normalized * movementSpeed;
             rb.velocity = new Vector3(limitedVelocity.x, rb.velocity.y, limitedVelocity.z);
         }
-    }
-
-    private bool IsOnSlope()
-    {
-        if (
-            Physics.Raycast(
-                transform.position,
-                Vector3.down,
-                out slopeHit,
-                maxRaycastDist + 0.1f,
-                whatIsGround
-            )
-        )
-        {
-            var angle = Vector3.Angle(Vector3.up, slopeHit.normal);
-            return angle < maxSlope && angle != 0;
-        }
-        return false;
     }
 }
