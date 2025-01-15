@@ -1,16 +1,10 @@
 # foops
 
-## THIS BRANCH IS OUTDATED & BROKEN
-
-- Please look at this branch instead: https://github.com/BOSS-Game-Dev/foops/tree/other
-- We will spend some time fixing the repository later... 
+## IMPORTANT:
+Please switch to the [finished branch](https://github.com/BOSS-Game-Dev/foops/tree/finished) to see our most recent version of the game.
+If you would like to run the game, clone this repository and open it in Unity.
 
 ## About
 
-A first-person controller demonstration made for the Bur Oak Secondary School Game Development Club
-
-## Notes
-
-This is the repository which will contain the progress we go over during clubtime.
-
-To see the finished product, see the [finished branch](https://github.com/BOSS-Game-Dev/foops/tree/finished).
+A 3D first-person controller demonstration made for the Bur Oak Secondary School Game Development Club. This is our second official project.
+Includes movement (including jumps), terrain edits, and simple sword combat.
